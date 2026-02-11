@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="max_robot">
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="wheelbase" value="0.322" />
+  <xacro:property name="wheel_radius" value="0.0625" />
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="${wheelbase/2} 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/base_link.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.741176470588235 0.901960784313726 0.956862745098039 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/base_link.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.0559438609142813 0.00330415969343129 0.0632418734279548" rpy="0 0 0" />
+      <mass value="2.0181307631489" />
+      <inertia
+        ixx="0.00496775560441293"
+        ixy="-2.50338594522071E-06"
+        ixz="-5.77894689328328E-06"
+        iyy="0.00738528213809822"
+        iyz="2.98387989498573E-07"
+        izz="0.0118788713157811" />
+    </inertial>
+  </link>
+
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin xyz="0.0 0.0 -0.0384" rpy="0 0 0"/>
+  </joint>
+
+  <link name="lf_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/lf_wheel_link.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.349019607843137 0.349019607843137 0.349019607843137 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/lf_wheel_link.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-4.54607698152643E-07 0.00161800736444831 1.60077912735659E-05" rpy="0 0 0" />
+      <mass value="0.282382357492354" />
+      <inertia
+        ixx="0.000386424332780066"
+        ixy="-5.52689264664868E-08"
+        ixz="-3.90350993787636E-09"
+        iyy="0.000685587970851221"
+        iyz="2.23837352292227E-08"
+        izz="0.00038646534831492" />
+    </inertial>
+  </link>
+
+  <joint name="lf_wheel_joint" type="revolute">
+    <origin xyz="${0.161163518918357 + wheelbase/2} 0.1542832024083 0.0241" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="lf_wheel_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.4" upper="0.4" effort="100.0" velocity="5.0"/>
+    <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
+  </joint>
+
+  <link name="lb_wheel_link">
+    <inertial>
+      <origin
+        xyz="-9.77664030010761E-08 0.00161800832068462 -1.60090049464712E-05"
+        rpy="0 0 0" />
+      <mass value="0.28238235510151" />
+      <inertia
+        ixx="0.000386424313854914"
+        ixy="1.16194804289711E-10"
+        ixz="-3.84765875735604E-09"
+        iyy="0.000685587976199213"
+        iyz="-2.23847888818388E-08"
+        izz="0.000386465352037647" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/lb_wheel_link.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.349019607843137 0.349019607843137 0.349019607843137 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/lb_wheel_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="lb_wheel_joint" type="continuous">
+    <origin xyz="0 0.155883202408302 0.024" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="lb_wheel_link" />
+    <axis xyz="0 1 0" />
+    <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0"/>
+  </joint>
+  
+  <link name="rb_wheel_link">
+    <inertial>
+      <origin
+        xyz="6.80710226524939E-06 -0.00161799270928523 -1.47295337563288E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.282382027797711" />
+      <inertia
+        ixx="0.000386426919158995"
+        ixy="-7.98393791848843E-09"
+        ixz="-1.25437358997355E-08"
+        iyy="0.000685587931504061"
+        iyz="2.05682797107053E-08"
+        izz="0.000386462676564921" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/rb_wheel_link.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.349019607843137 0.349019607843137 0.349019607843137 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/rb_wheel_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="rb_wheel_joint" type="continuous">
+    <origin xyz="0 -0.154348797591698 0.024" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="rb_wheel_link" />
+    <axis xyz="0 1 0" />
+    <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0"/>
+  </joint>
+
+  <link name="rf_wheel_link">
+    <inertial>
+      <origin xyz="-9.7767222234646E-08 -0.00161800832093656 1.60090049463671E-05" rpy="0 0 0" />
+      <mass value="0.28238235510151" />
+      <inertia
+        ixx="0.000386424313854915"
+        ixy="-1.1619480218228E-10"
+        ixz="3.84765875779835E-09"
+        iyy="0.000685587976199214"
+        iyz="-2.23847888821488E-08"
+        izz="0.000386465352037647" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/rf_wheel_link.stl" />
+      </geometry>
+      <material name="">
+        <color
+          rgba="0.349019607843137 0.349019607843137 0.349019607843137 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://max_robot_description/meshes/rf_wheel_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="rf_wheel_joint" type="revolute">
+    <origin xyz="${0.161173518918356 + wheelbase/2} -0.1529487975917 0.0241" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="rf_wheel_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.4" upper="0.4" effort="100.0" velocity="5.0"/>
+    <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
+  </joint>
+
+  <link name="camera_link">
+    <inertial>
+      <origin xyz="-3.7325679416722E-07 -3.5360806139174E-07 1.07624233500886E-07" rpy="0 0 0" />
+      <mass value="0.0559842512080098" />
+      <inertia
+        ixx="0.000130810959339214"
+        ixy="1.2025512820631E-07"
+        ixz="1.62335437080103E-06"
+        iyy="1.91148634967897E-05"
+        iyz="-2.80016755799718E-08"
+        izz="0.000131387469523028" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/camera_link.stl" />
+      </geometry>
+      <material name="">
+        <color
+          rgba="0.349019607843137 0.349019607843137 0.349019607843137 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://max_robot_description/meshes/camera_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="${0.165778518918356 + wheelbase/2} 0.000945202408300414 0.192" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="camera_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="laser_link">
+    <inertial>
+      <origin
+        xyz="0.0023946067219177 -4.36235872412078E-06 0.0045403567617667"
+        rpy="0 0 0" />
+      <mass value="0.0391766918354982" />
+      <inertia
+        ixx="2.82296075716123E-05"
+        ixy="-2.19900342512302E-09"
+        ixz="1.07118438626956E-06"
+        iyy="3.3798449785624E-05"
+        iyz="6.83963624087229E-10"
+        izz="4.50920076524856E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/laser.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.376470588235294 0.376470588235294 0.376470588235294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://max_robot_description/meshes/laser.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="laser_joint" type="fixed">
+    <origin xyz="${0.0887405189187401 + wheelbase/2} 0.000667202411597726 0.111024183741431" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="laser_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="virtual_rear_wheel">
+   <visual>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+      <geometry>
+        <cylinder length="0.01" radius="${wheel_radius}"/>
+      </geometry>
+      <material name="invisible">
+        <color rgba="0.0 0.0 0.0 0.0"/>
+      </material>
+    </visual>
+  </link>
+
+    <joint name="virtual_rear_wheel_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="virtual_rear_wheel"/>
+      <origin xyz="0 0 0.0241" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="100.0" velocity="5.0"/>
+      <dynamics damping="0.2"/>
+    </joint>
+
+    <link name="virtual_front_wheel">
+      <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="0.01" radius="${wheel_radius}"/>
+        </geometry>
+	<material name="invisible">
+          <color rgba="0.0 0.0 0.0 0.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="virtual_front_wheel_joint" type="revolute">
+      <parent link="base_link"/>
+      <child link="virtual_front_wheel"/>
+      <origin xyz="${wheelbase} 0 0.0241" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-0.4" upper="0.4" effort="100.0" velocity="5.0"/>
+      <dynamics damping="0.2"/>
+    </joint>
+
+   <link name="imu_link">
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="${wheelbase/2} 0 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>

@@ -1,0 +1,9 @@
+<library path="max_robot_base">
+  <class name="max_robot_base/MaxRobotSystemHardware"
+         type="max_robot_base::MaxRobotSystemHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The ros2_control MaxRobot is using a system hardware interface-type. It uses velocity and position command and state interface for the drive motor and position command and state interface for the steering. This is a hardware interface for Ackermann and bicycle drive robots.
+    </description>
+  </class>
+</library>

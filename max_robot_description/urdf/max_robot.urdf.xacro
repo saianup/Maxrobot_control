@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="max_robot">
+  <!-- Import robot description -->
+  <xacro:include filename="$(find max_robot_description)/urdf/max_robot_description.urdf.xacro" />
+
+  <!-- Import ros2_control description -->
+  <xacro:include filename="$(find max_robot_description)/urdf/max_robot.ros2_control.xacro" />
+
+  <xacro:max_robot_ros2_control />
+</robot>
