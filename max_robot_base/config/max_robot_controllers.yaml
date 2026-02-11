@@ -1,0 +1,51 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 30  # Hz
+
+    imu_sensor_broadcaster:
+      type: imu_sensor_broadcaster/IMUSensorBroadcaster
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    bicycle_steering_controller:
+      type: bicycle_steering_controller/BicycleSteeringController
+
+    battery_state_broadcaster:
+      type: battery_state_broadcaster/BatteryStateBroadcaster
+
+imu_sensor_broadcaster:
+  ros__parameters:
+    frame_id:  "imu_link"
+    sensor_name: "imu_sensor"
+
+bicycle_steering_controller:
+  ros__parameters:
+    open_loop: false
+    in_chained_mode: false
+    front_steering: true
+    use_stamped_vel: false
+    publish_limited_velocity: true
+    wheelbase: 0.322
+    front_wheel_radius: 0.0625
+    rear_wheel_radius: 0.0625
+    reference_timeout: 2.0
+    rear_wheels_names: ['virtual_rear_wheel_joint']
+    front_wheels_names: ['virtual_front_wheel_joint']
+    velocity_rolling_window_size: 10
+    base_frame_id: base_link
+    odom_frame_id: odom_base
+    enable_odom_tf: true
+    twist_covariance_diagonal: [1e-9, 1e-3, 1e6, 1e6, 1e6, 1e-9]
+    pose_covariance_diagonal: [1e-9, 1e-3, 1e6, 1e6, 1e6, 1e-9]
+    linear.x.has_velocity_limits: true
+    linear.x.max_velocity: 1.2 # m/s
+    angular.z.has_velocity_limits: true
+    angular.z.max_velocity: 1.5708 # rad/s
+    position_feedback: false
+
+battery_state_broadcaster:
+  ros__parameters:
+    sensor_name: "battery_state"
+    design_capacity: 6.0
+    power_supply_technology: 4
